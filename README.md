@@ -36,7 +36,6 @@ binary region grow search. Return 1s where `data==val` and 0s otherwise.
 
 For both, set `diagnoal` to 1 to treat diagnal cells (within the 3x3 element) as neighbours, set to 0 to exclude diagnoal cells.
 
-**NOTE** beware of the differences in the indexing conventions of Python v.s. Fortran: Python indexing starts from 0, while Fortran starts from 1 (by default). So don't forget to increment the seed indices by 1 before calling the functions.
 
 To build a python module:
 ```
@@ -49,6 +48,8 @@ import regiongrow
 print regiongrow.regiongrow.regiongrow_real.__doc__
 print regiongrow.regiongrow.regiongrow_bin.__doc__
 ```
+**NOTE** beware of the differences in the indexing conventions of Python v.s. Fortran: Python indexing starts from 0, while Fortran starts from 1 (by default). So don't forget to increment the seed indices by 1 before calling the functions.
+
 
 ## conv2d
 
