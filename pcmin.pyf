@@ -1,0 +1,47 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module pcmin ! in 
+    interface  ! in :pcmin
+        module pcmin_mod ! in :pcmin:pcmin.f90
+            real(kind=8), private,parameter,optional :: rv=461.5
+            real(kind=8), private,parameter,optional :: alv0=2501000.0
+            real(kind=8), private,parameter,optional :: cl=2500.0
+            real(kind=8), private,parameter,optional :: cpd=1005.7
+            real(kind=8), private,parameter,optional,depend(cl,cpv) :: cpvmcl=-630.0
+            integer, private,parameter,optional :: ikind=selected_real_kind(p=15,r=10)
+            real(kind=8), private,parameter,optional,depend(rv,rd) :: eps=0.621971830986
+            real(kind=8), private,parameter,optional :: rd=287.04
+            real(kind=8), private,parameter,optional :: cpv=1870.0
+            subroutine pcmin(sst,psl,p,t,r,na,n,pmin,vmax,ifl) ! in :pcmin:pcmin.f90:pcmin_mod
+                real(kind=8) :: sst
+                real(kind=8) :: psl
+                real(kind=8) dimension(na),depend(na) :: p
+                real(kind=8) dimension(na),depend(na) :: t
+                real(kind=8) dimension(na),depend(na) :: r
+                integer, intent(in) :: na
+                integer :: n
+                real(kind=8), intent(out) :: pmin
+                real(kind=8), intent(out) :: vmax
+                integer, intent(out) :: ifl
+            end subroutine pcmin
+            subroutine cape(tp,rp,pp,t,r,p,nd,n,sig,caped,tob,iflag) ! in :pcmin:pcmin.f90:pcmin_mod
+                real(kind=8) :: tp
+                real(kind=8) :: rp
+                real(kind=8) :: pp
+                real(kind=8) dimension(nd),depend(nd) :: t
+                real(kind=8) dimension(nd),depend(nd) :: r
+                real(kind=8) dimension(nd),depend(nd) :: p
+                integer, intent(in) :: nd
+                integer :: n
+                integer :: sig
+                real(kind=8), intent(out) :: caped
+                real(kind=8), intent(out) :: tob
+                integer, intent(out) :: iflag
+            end subroutine cape
+        end module pcmin_mod
+    end interface 
+end python module pcmin
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
