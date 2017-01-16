@@ -36,6 +36,8 @@ binary region grow search. Return 1s where `data==val` and 0s otherwise.
 
 For both, set `diagnoal` to 1 to treat diagnal cells (within the 3x3 element) as neighbours, set to 0 to exclude diagnoal cells.
 
+**NOTE** beware of the differences in the indexing conventions of Python v.s. Fortran: Python indexing starts from 0, while Fortran starts from 1 (by default). So don't forget to increment the seed indices by 1 before calling the functions.
+
 To build a python module:
 ```
 f2py -c regiongrow.pyf regiongrow.f90
@@ -58,7 +60,7 @@ Two subroutines are included in the module:
 
 convolve `slab` with kernel `kernel`. Missing values in `slab` are denoted by 1s in `slabmask`, where 0s denote valid points. On the contrary, 1s in `kernelflag` denote valid points in the kernel and 0s otherwise. This is to facilitate valid data count (e.g. a Gaussian kernel has near-zero values around the kernel edges where ambiguity may exist whether they should be treated as 0s). `max_missing` specifies the maximum tolerable ratio of missing values for each integration: E.g. `max_missing = 0.5`, then among the valid kernel points (`kernelflag==1`), at least 50 % of values in `data` has to be valid, otherwise the integration in is assigned a value 0 to `reslab`, and correspondingly `resmask` is assigned a value 1 to denote insufficient data. No filling or wrapping is done at the edges, the kernel is cropped when it extends outside `data`.
 
-This is to complement similar functions in `scipy.ndimage.convolve()`, which assigns a `nan` for all cells when any missing overlaps with the kernel (even when overlaps with 0s in kernel). The `astropy.convolution.convolve()` interpolates missings in the data slab, but doesn't allow control over the level of missing tolerance.
+This is to complement similar function in `scipy.ndimage.convolve()`, which assigns a `nan` for all cells when any missing overlaps with the kernel (even when overlaps with 0s in kernel). The `astropy.convolution.convolve()` interpolates missings in the data slab, but doesn't allow control over the level of missing tolerance.
 
 - `runmean2d(slab,slabmask,kernel,kernelflag,max_missing,resslab,resmask,hs,ws)`:
 
