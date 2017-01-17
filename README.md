@@ -28,7 +28,7 @@ Two subroutines are included in the module:
 
 - `regiongrow_real(data,seedy,seedx,val,eps,res,ny,nx,diagonal)`:
 
-search a map `data` from a given seed denoted by `seedy` and `seedx`, and return 1s in `data` where `data` is in the range [`val` - `eps`, `val` + `eps`], and the rest of the returned map is filled up with 0s.
+search a map `data` from a given seed denoted by `seedy` and `seedx`, and return 1s where `data` is in the range [`val` - `eps`, `val` + `eps`], and 0s otherwise.
 
 - `regiongrow_bin(data,seedy,seedx,val,res,ny,nx,diagonal)`:
 
