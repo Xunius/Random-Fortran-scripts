@@ -4,17 +4,16 @@
 python module regiongrow ! in 
     interface  ! in :regiongrow
         module regiongrow ! in :regiongrow:regiongrow.f90
-            subroutine regiongrow_real(data,seedy,seedx,val,eps,res,ny,nx,diagonal,fill) ! in :regiongrow:regiongrow.f90:regiongrow
+            subroutine regiongrow_real(data,seedy,seedx,val,eps,res,ny,nx,diagonal) ! in :regiongrow:regiongrow.f90:regiongrow
                 real dimension(ny,nx),intent(in) :: data
                 integer intent(in) :: seedy
                 integer intent(in) :: seedx
                 real intent(in) :: val
                 real intent(in) :: eps
-                real dimension(ny,nx),intent(out),depend(ny,nx) :: res
+                integer dimension(ny,nx),intent(out),depend(ny,nx) :: res
                 integer, optional,check(shape(data,0)==ny),depend(data) :: ny=shape(data,0)
                 integer, optional,check(shape(data,1)==nx),depend(data) :: nx=shape(data,1)
                 integer, optional,intent(inout) :: diagonal
-                real, optional,intent(inout) :: fill
             end subroutine regiongrow_real
             subroutine regiongrow_bin(data,seedy,seedx,val,res,ny,nx,diagonal) ! in :regiongrow:regiongrow.f90:regiongrow
                 integer dimension(ny,nx),intent(in) :: data
