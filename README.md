@@ -78,3 +78,35 @@ import conv2d
 print conv2d.conv2d.convolve2d.__doc__
 print conv2d.conv2d.runmean2d.__doc__
 ```
+
+## m_lowess2d
+
+Perform 2D lowess (Locally weighted Scatterplot Smoothing) filtering on 2D data.
+
+Subroutine:
+
+- `lowess2d(z,x,y,nx,ny,span_x,span_y,degree,nsteps,zout,wout)`
+
+Filter the input array `<z>` with a polynormial of degree `<degree>` on local subsets defined by `<span_x> and <span_y>`.
+`<x>` and `<y>` are the x and y coordinates for the gridded data `<z>`.
+The local subset is an ellipse centered at the point in question, and with an x-axis span of `<span_x>` and a y-axis span of `<span_y>`.
+
+NOTE that to use this module also requires the `mrgrnk` and `qr_solve` codes, link below:
+- mrgrnk: http://www.fortran-2000.com/rank/
+- qr_solve: https://people.sc.fsu.edu/~jburkardt/f_src/qr_solve/qr_solve.html
+
+To build a python module:
+```
+f2py -m m_lowess2d -h m_lowess2d.pyf m_lowess2d.f90
+f2py -c m_lowess2d.pyf mrgrnk.f90 qr_solve.f90 m_lowess2d.f90
+```
+
+To use in python:
+```
+import m_lowess2d
+print m_lowess2d.m_lowess2d.lowess2d.__doc__
+```
+
+
+
+
