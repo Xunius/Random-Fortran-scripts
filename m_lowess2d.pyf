@@ -1,0 +1,55 @@
+!    -*- f90 -*-
+! Note: the context of this file is case sensitive.
+
+python module m_lowess2d ! in 
+    interface  ! in :m_lowess2d
+        module m_lowess2d ! in :m_lowess2d:m_lowess2d.f90
+            use m_mrgrnk
+            use m_qr_solve
+            subroutine lowess2d(z,x,y,nx,ny,span_x,span_y,degree,nsteps,zout,wout) ! in :m_lowess2d:m_lowess2d.f90:m_lowess2d
+                real(kind=8) dimension(ny,nx),intent(in) :: z
+                real(kind=8) dimension(nx),intent(in) :: x
+                real(kind=8) dimension(ny),intent(in) :: y
+                integer, optional,intent(in),check(shape(z,1)==nx),depend(z) :: nx=shape(z,1)
+                integer, optional,intent(in),check(shape(z,0)==ny),depend(z) :: ny=shape(z,0)
+                integer intent(in) :: span_x
+                integer intent(in) :: span_y
+                integer intent(in) :: degree
+                integer intent(in) :: nsteps
+                real(kind=8) dimension(ny,nx),intent(out) :: zout
+                real(kind=8) dimension(ny,nx),intent(out) :: wout
+            end subroutine lowess2d
+            subroutine get_ellipse(a,b,disk) ! in :m_lowess2d:m_lowess2d.f90:m_lowess2d
+                integer intent(in) :: a
+                integer intent(in) :: b
+                integer dimension(2 * b + 1,2 * a + 1),intent(out),depend(b,a) :: disk
+            end subroutine get_ellipse
+            subroutine regioncopy(slab,nx,ny,xidx,yidx,element,w,h) ! in :m_lowess2d:m_lowess2d.f90:m_lowess2d
+                integer dimension(ny,nx),intent(inout) :: slab
+                integer, optional,intent(in),check(shape(slab,1)==nx),depend(slab) :: nx=shape(slab,1)
+                integer, optional,intent(in),check(shape(slab,0)==ny),depend(slab) :: ny=shape(slab,0)
+                integer intent(in) :: xidx
+                integer intent(in) :: yidx
+                integer dimension(h,w),intent(in) :: element
+                integer, optional,intent(in),check(shape(element,1)==w),depend(element) :: w=shape(element,1)
+                integer, optional,intent(in),check(shape(element,0)==h),depend(element) :: h=shape(element,0)
+            end subroutine regioncopy
+            subroutine polyfit2d(x,y,z,degree,weights,n,zfit) ! in :m_lowess2d:m_lowess2d.f90:m_lowess2d
+                real(kind=8) dimension(n),intent(in) :: x
+                real(kind=8) dimension(n),intent(in),depend(n) :: y
+                real(kind=8) dimension(n),intent(in),depend(n) :: z
+                integer intent(in) :: degree
+                real(kind=8) dimension(n),intent(in),depend(n) :: weights
+                integer, optional,intent(in),check(len(x)>=n),depend(x) :: n=len(x)
+                real(kind=8) dimension(n),intent(out),depend(n) :: zfit
+            end subroutine polyfit2d
+            function median(array) result (med) ! in :m_lowess2d:m_lowess2d.f90:m_lowess2d
+                real(kind=8) dimension(:) :: array
+                real(kind=8) :: med
+            end function median
+        end module m_lowess2d
+    end interface 
+end python module m_lowess2d
+
+! This file was auto-generated with f2py (version:2).
+! See http://cens.ioc.ee/projects/f2py2e/
