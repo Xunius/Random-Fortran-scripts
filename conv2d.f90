@@ -111,12 +111,12 @@ contains
                     end do
                 end do
 
-                if (float(nvalid)/nbox < max_missing) then
-                    resslab(ii,jj)=0.
-                    resmask(ii,jj)=1
-                else
+                if (1-float(nvalid)/nbox < max_missing) then
                     resslab(ii,jj)=tmp
                     resmask(ii,jj)=0
+                else
+                    resslab(ii,jj)=0.
+                    resmask(ii,jj)=1
                 end if
             end do
         end do
@@ -132,7 +132,7 @@ contains
         ! <slabmask>: int, 2d mask for <slab>, 0 means valid, 1 means missing/invalid/nan.
         ! <kernel>: real, 2d input array with smaller size than <slab>, kernel to convolve with.
         ! <kernelflag>: int, 2d flag for <kernel>, 0 means empty, 1 means something. This is 
-        !               to facilitate counting valid points within element.
+        !               to fercilitate counting valid points within element.
         ! <max_missing>: real, max percentage of missing within any convolution element tolerable.
         !                E.g. if <max_missing> is 0.5, if over 50% of values within a given element
         !                are missing, the center will be set as missing (<res>=0, <resmask>=1). If
