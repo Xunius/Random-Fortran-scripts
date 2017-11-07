@@ -94,10 +94,10 @@ contains
         do ii = 1,hs
             do jj = 1,ws
 
-                y1=max(1,ii-hh_u)
-                y2=min(hs,ii+hh_d)
-                x1=max(1,jj-hw_l)
-                x2=min(ws,jj+hw_r)
+                y1=ii-hh_u
+                y2=ii+hh_d
+                x1=jj-hw_l
+                x2=jj+hw_r
 
                 tmp=0.
                 nvalid=0
@@ -105,6 +105,11 @@ contains
 
                 do i = y1,y2
                     do j = x1,x2
+                        ! skip out-of-bound points
+                        if (i<1 .or. i>hs .or. j<1 .or. j>ws) then
+                            cycle
+                        end if
+
                         nvalid=nvalid+(1-slabmask(i,j))*kernelflag(i-y1+1,j-x1+1)
                         tmp=tmp+(1-slabmask(i,j))*slab(i,j)*kernel(i-y1+1,j-x1+1)
                         nbox=nbox+kernelflag(i-y1+1,j-x1+1)
